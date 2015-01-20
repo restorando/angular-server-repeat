@@ -25,7 +25,11 @@ angular.module('ServerRepeat', [])
         var ngServerRepeatCtrl = controllers[0],
             controller         = controllers[1];
 
-        controller.setPropertyKey(ngServerRepeatCtrl.memberIdentifier);
+        controller.exposeToScope(ngServerRepeatCtrl.memberIdentifier);
+
+        if (attrs.ngMember) {
+          controller.setProperties(angular.fromJson(attrs.ngMember));
+        }
 
         ngServerRepeatCtrl.addMember(controller.getMember());
       },
@@ -36,12 +40,20 @@ angular.module('ServerRepeat', [])
           return member;
         };
 
+        this.getProperty = function(key) {
+          return member[key];
+        };
+
         this.setProperty = function(key, value) {
           member[key] = value;
         };
 
-        this.setPropertyKey = function(propertyKey) {
-          $scope[propertyKey] = member;
+        this.setProperties = function(properties) {
+          angular.extend(member, properties);
+        };
+
+        this.exposeToScope = function(scopeVariable) {
+          $scope[scopeVariable] = member;
         };
       }
     };
@@ -52,6 +64,14 @@ angular.module('ServerRepeat', [])
       require: '^ngMember',
       link: function(scope, element, attrs, ngMemberCtrl) {
         ngMemberCtrl.setProperty(attrs.ngAssign, element.text());
+        element = element[0];
+
+        scope.$watch(function() {
+          return ngMemberCtrl.getProperty(attrs.ngAssign);
+        }, function (value) {
+          if (element.textContent === value) return;
+          element.textContent = value === undefined ? '' : value;
+        });
       }
     };
   });

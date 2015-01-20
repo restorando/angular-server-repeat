@@ -2,58 +2,21 @@ angular.module('ServerRepeat', [])
 
   .directive('ngServerRepeat', function() {
     return {
-      controller: function($scope, $attrs) {
-        var match = $attrs.ngServerRepeat.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)$/);
-
-        this.memberIdentifier = match[1];
-        this.collectionIdentifier = match[2];
-
-        var collection = $scope[this.collectionIdentifier] = [];
-
-        this.addMember = function(member) {
-          collection.push(member);
-        };
-      }
-    };
-  })
-
-  .directive('ngMember', function() {
-    return {
-      require: ['^ngServerRepeat', 'ngMember'],
       scope: true,
-      link: function(scope, element, attrs, controllers) {
-        var ngServerRepeatCtrl = controllers[0],
-            controller         = controllers[1];
+      controller: function($scope, $attrs) {
+        var match                = $attrs.ngServerRepeat.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)$/);
+        var memberIdentifier     = match[1];
+        var collectionIdentifier = match[2];
+        var member               = $scope[memberIdentifier] = {};
 
-        controller.exposeToScope(ngServerRepeatCtrl.memberIdentifier);
-
-        if (attrs.ngMember) {
-          controller.setProperties(angular.fromJson(attrs.ngMember));
-        }
-
-        ngServerRepeatCtrl.addMember(controller.getMember());
-      },
-      controller: function($scope) {
-        var member = {};
-
-        this.getMember = function() {
-          return member;
-        };
-
-        this.getProperty = function(key) {
-          return member[key];
-        };
+        ($scope.$parent[collectionIdentifier] = $scope.$parent[collectionIdentifier] || []).push(member);
 
         this.setProperty = function(key, value) {
           member[key] = value;
         };
 
-        this.setProperties = function(properties) {
-          angular.extend(member, properties);
-        };
-
-        this.exposeToScope = function(scopeVariable) {
-          $scope[scopeVariable] = member;
+        this.getProperty = function(key) {
+          return member[key];
         };
       }
     };
@@ -61,13 +24,13 @@ angular.module('ServerRepeat', [])
 
   .directive('ngAssign', function() {
     return {
-      require: '^ngMember',
-      link: function(scope, element, attrs, ngMemberCtrl) {
-        ngMemberCtrl.setProperty(attrs.ngAssign, element.text());
+      require: '^ngServerRepeat',
+      link: function(scope, element, attrs, ngServerRepeatCtrl) {
+        ngServerRepeatCtrl.setProperty(attrs.ngAssign, element.text());
         element = element[0];
 
         scope.$watch(function() {
-          return ngMemberCtrl.getProperty(attrs.ngAssign);
+          return ngServerRepeatCtrl.getProperty(attrs.ngAssign);
         }, function (value) {
           if (element.textContent === value) return;
           element.textContent = value === undefined ? '' : value;

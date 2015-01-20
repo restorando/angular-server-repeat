@@ -14,20 +14,20 @@
         <h3>Todo count: {{todos.length}}</h3>
       </div>
 
-      <ul class="list-group" ng-server-repeat="todo in todos">
-        <li ng-member class="list-group-item">
+      <ul class="list-group">
+        <li ng-server-repeat="todo in todos" class="list-group-item">
           <h4 ng-assign="title">Do homework</h4>
           <p ng-assign="description">For university</p>
           <button class="btn btn-primary" ng-click="show = !show">Toggle label</button>
           <span class="label label-default" ng-show="show">{{todo.title}} {{todo.description}}</span>
         </li>
-        <li ng-member class="list-group-item">
+        <li ng-server-repeat="todo in todos" class="list-group-item">
           <h4 ng-assign="title">Buy food</h4>
           <p ng-assign="description">dairy and meat</p>
           <button class="btn btn-primary" ng-click="show = !show">Toggle label</button>
           <span class="label label-default" ng-show="show">{{todo.title}} {{todo.description}}</span>
         </li>
-        <li ng-member class="list-group-item">
+        <li ng-server-repeat="todo in todos" class="list-group-item">
           <h4 ng-assign="title">Finish angularjs directives</h4>
           <p ng-assign="description">and publish them</p>
           <button class="btn btn-primary" ng-click="show = !show">Toggle label</button>

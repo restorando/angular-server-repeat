@@ -15,6 +15,10 @@ angular.module('ServerRepeat', [])
           member[key] = value;
         };
 
+        this.setProperties = function(properties) {
+          angular.extend(member, properties);
+        };
+
         this.getProperty = function(key) {
           return member[key];
         };
@@ -25,16 +29,21 @@ angular.module('ServerRepeat', [])
   .directive('ngAssign', function() {
     return {
       require: '^ngServerRepeat',
+      restrict: 'A',
       link: function(scope, element, attrs, ngServerRepeatCtrl) {
-        ngServerRepeatCtrl.setProperty(attrs.ngAssign, element.text());
-        element = element[0];
+        if (attrs.ngServerRepeat) {
+          ngServerRepeatCtrl.setProperties(angular.fromJson(attrs.ngAssign));
+        } else {
+          ngServerRepeatCtrl.setProperty(attrs.ngAssign, element.text());
+          element = element[0];
 
-        scope.$watch(function() {
-          return ngServerRepeatCtrl.getProperty(attrs.ngAssign);
-        }, function (value) {
-          if (element.textContent === value) return;
-          element.textContent = value === undefined ? '' : value;
-        });
+          scope.$watch(function() {
+            return ngServerRepeatCtrl.getProperty(attrs.ngAssign);
+          }, function (value) {
+            if (element.textContent === value) return;
+            element.textContent = value === undefined ? '' : value;
+          });
+        }
       }
     };
   });

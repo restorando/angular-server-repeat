@@ -1,15 +1,34 @@
 angular.module('ServerRepeat', [])
 
-  .directive('ngServerRepeat', function() {
+  .directive('serverRepeat', function() {
     return {
       scope: true,
       controller: function($scope, $attrs) {
-        var match                = $attrs.ngServerRepeat.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)$/);
+        var match                = $attrs.serverRepeat.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)$/);
         var memberIdentifier     = match[1];
         var collectionIdentifier = match[2];
-        var member               = $scope[memberIdentifier] = {};
+        var member               = $scope[memberIdentifier] = { $$scope: $scope };
+        var collection           = $scope.$parent[collectionIdentifier] || [];
 
-        ($scope.$parent[collectionIdentifier] = $scope.$parent[collectionIdentifier] || []).push(member);
+        $scope.$parent[collectionIdentifier] = collection;
+
+        $scope.$index  = collection.length;
+        $scope.$first  = ($scope.$index === 0);
+        $scope.$last   = false;
+        $scope.$middle = false;
+        $scope.$odd    = !($scope.$even = ($scope.$index&1) === 0);
+
+        if ($scope.$first) {
+          var removeWatcher = $scope.$parent.$watchCollection(collectionIdentifier, function(collection) {
+            angular.forEach(collection, function(member) {
+              member.$$scope.$last = (member.$$scope.$index === (collection.length - 1));
+              member.$$scope.$middle = !(member.$$scope.$first || member.$$scope.$last);
+            });
+            removeWatcher();
+          });
+        }
+
+        collection.push(member);
 
         this.setProperty = function(key, value) {
           member[key] = value;
@@ -26,19 +45,19 @@ angular.module('ServerRepeat', [])
     };
   })
 
-  .directive('ngAssign', function() {
+  .directive('serverBind', function() {
     return {
-      require: '^ngServerRepeat',
+      require: '^serverRepeat',
       restrict: 'A',
       link: function(scope, element, attrs, ngServerRepeatCtrl) {
-        if (attrs.ngServerRepeat) {
-          ngServerRepeatCtrl.setProperties(angular.fromJson(attrs.ngAssign));
+        if (attrs.hasOwnProperty('serverRepeat')) {
+          ngServerRepeatCtrl.setProperties(angular.fromJson(attrs.serverBind));
         } else {
-          ngServerRepeatCtrl.setProperty(attrs.ngAssign, element.text());
+          ngServerRepeatCtrl.setProperty(attrs.serverBind, element.text());
           element = element[0];
 
           scope.$watch(function() {
-            return ngServerRepeatCtrl.getProperty(attrs.ngAssign);
+            return ngServerRepeatCtrl.getProperty(attrs.serverBind);
           }, function (value) {
             if (element.textContent === value) return;
             element.textContent = value === undefined ? '' : value;

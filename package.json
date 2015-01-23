@@ -1,0 +1,34 @@
+{
+  "name": "angular-server-repeat",
+  "version": "0.1.0",
+  "description": "Make server side rendered repeated snippets dynamic",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/restorando/angular-server-repeat.git"
+  },
+  "keywords": [
+    "server-repeat",
+    "ng-repeat",
+    "angular",
+    "angularjs",
+    "server side repeat"
+  ],
+  "author": "Gabriel Schammah",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/restorando/angular-server-repeat/issues"
+  },
+  "homepage": "https://github.com/restorando/angular-server-repeat",
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "jquery": "^2.1.1",
+    "karma": "^0.12.19",
+    "karma-chai-plugins": "^0.2.3",
+    "karma-mocha": "^0.1.7",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "lodash": "^2.4.1"
+  }
+}

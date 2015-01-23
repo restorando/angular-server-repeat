@@ -50,7 +50,7 @@ describe('serverRepeat', function () {
     compile(html);
 
     $scope.todos.forEach(function(todo, i) {
-      var el = $('li:eq(' + i + ')');
+      var el = angular.element($('li:eq(' + i + ')'));
       expect(todo.$$scope).to.eq(el.scope());
       if (i === 2) done();
     });
@@ -89,21 +89,21 @@ describe('serverRepeat', function () {
     });
 
     it('exposes the iteration properties in the child scope', function() {
-      var scope = $('li:first').scope();
+      var scope = angular.element($('li:first')).scope();
       expect(scope.$first).to.be.true;
       expect(scope.$last).to.be.false;
       expect(scope.$middle).to.be.false;
       expect(scope.$even).to.be.true;
       expect(scope.$odd).to.be.false;
 
-      scope = $('li:eq(1)').scope();
+      scope = angular.element($('li:eq(1)')).scope();
       expect(scope.$first).to.be.false;
       expect(scope.$last).to.be.false;
       expect(scope.$middle).to.be.true;
       expect(scope.$even).to.be.false;
       expect(scope.$odd).to.be.true;
 
-      scope = $('li:last').scope();
+      scope = angular.element($('li:last')).scope();
       expect(scope.$first).to.be.false;
       expect(scope.$last).to.be.true;
       expect(scope.$middle).to.be.false;

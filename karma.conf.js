@@ -11,13 +11,12 @@ module.exports = {
 
   // frameworks to use
   // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-  frameworks: ['mocha', 'chai', 'chai-jquery', 'sinon-chai'],
+  frameworks: ['mocha', 'chai', 'chai-jquery'],
 
 
   // list of files / patterns to load in the browser
   files: [
     'node_modules/jquery/dist/jquery.js',
-    'test/lib/*.js',
     'test/**/*.spec.js',
     'src/angular-server-repeat.js'
   ],

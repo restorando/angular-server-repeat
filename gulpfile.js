@@ -18,7 +18,7 @@ gulp.task('test:legacy', function (done) {
  * Run test once and exit
  */
 
-gulp.task('test', function (done) {
+gulp.task('test', ['test:legacy'], function (done) {
   karma.start(_.assign({}, karmaConfFor('1.3.6'), {singleRun: true}), done);
 });
 

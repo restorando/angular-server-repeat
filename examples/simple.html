@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <body ng-app="ServerRepeatExample">
+
+    <h3>Posts count: {{posts.length}}</h3>
+    <article server-repeat="post in posts">
+        <h4 server-bind="title">My awesome first post</h4>
+        <span class="author" server-bind="author">John Williams</span>
+        <div class="summary" server-bind="summary">My awesome first post summary</div>
+    </article>
+    <article server-repeat="post in posts">
+        <h4 server-bind="title">My awesome second post</h4>
+        <span class="author" server-bind="author">Peter Morello</span>
+        <div class="summary" server-bind="summary">My awesome second post summary</div>
+    </article>
+    <article server-repeat="post in posts" server-bind='{"id":3,"tags":["music"]}'>
+        <h4 server-bind="title">My awesome last post</h4>
+        <span class="author" server-bind="author">Mark Lopez</span>
+        <div class="summary" server-bind="summary">My awesome last post summary</div>
+    </article>
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.9/angular.js"></script>
+    <script type="text/javascript" src="../src/angular-server-repeat.js"></script>
+    <script type="text/javascript">
+      angular.module('ServerRepeatExample', ['ServerRepeat']);
+    </script>
+  </body>
+</html>

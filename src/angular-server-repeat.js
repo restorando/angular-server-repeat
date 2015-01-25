@@ -3,7 +3,7 @@ angular.module('ServerRepeat', [])
   .directive('serverRepeat', function() {
     return {
       scope: true,
-      controller: function($scope, $attrs) {
+      controller: ['$scope', '$attrs', function($scope, $attrs) {
         var match                = $attrs.serverRepeat.match(/^\s*([\s\S]+?)\s+in\s+([\s\S]+?)$/);
         var memberIdentifier     = match[1];
         var collectionIdentifier = match[2];
@@ -41,7 +41,7 @@ angular.module('ServerRepeat', [])
         this.getProperty = function(key) {
           return member[key];
         };
-      }
+      }]
     };
   })
 

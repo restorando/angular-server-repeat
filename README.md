@@ -131,6 +131,10 @@ Will produce:
 
 ![image](https://cloud.githubusercontent.com/assets/591992/5893560/e78cbf42-a4c7-11e4-88a1-1bb2afb6422c.png)
 
+#### Iteration properties
+
+Each child scope have `$first`, `$last`, `$middle`, `$even` and `$odd` variables as in `ngRepeat`.
+
 ## Motivation
 
 In Restorando we have full client side apps that use AngularJS intensively, and we also have server rendered apps with custom javascript for some pages. Since we had a great experience with AngularJS in the client side apps, we started to slowly remove the legacy javascript files in our "server-side apps" and replace them with reusable angular directives.

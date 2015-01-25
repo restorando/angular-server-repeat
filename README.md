@@ -1,4 +1,5 @@
-# angular-server-repeat.
+# angular-server-repeat [![Build Status](https://travis-ci.org/restorando/angular-server-repeat.svg?branch=master)](https://travis-ci.org/restorando/angular-server-repeat)
+
 Convert server-side repeated content into `ngRepeat` compatible [with some restrictions](#caveats-and-restrictions).
 
 ## Installation

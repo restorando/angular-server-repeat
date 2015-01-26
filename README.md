@@ -133,13 +133,13 @@ Will produce:
 
 #### Iteration properties
 
-Each child scope have `$first`, `$last`, `$middle`, `$even` and `$odd` variables as in `ngRepeat`.
+Each child scope has `$first`, `$last`, `$middle`, `$even` and `$odd` variables as in `ngRepeat`.
 
 ## Motivation
 
-In Restorando we have full client side apps that use AngularJS intensively, and we also have server rendered apps with custom javascript for some pages. Since we had a great experience with AngularJS in the client side apps, we started to slowly remove the legacy javascript files in our "server-side apps" and replace them with reusable angular directives.
+In Restorando we have full client side apps that use AngularJS intensively, and server rendered apps with custom javascript for some pages. Since we had a great experience with AngularJS in the client side apps, we started to slowly remove the legacy javascript files in our "server-side apps" and replace them with reusable angular directives.
 
-We found in the way that we wanted to add functionality to our "repeated" html snippets, but we didn't want to immerse ourselves in a big refactor to render this data client side using `ngRepeat`. Doing this would also prevent the search engines to index our content.
+During our work we discovered that we wanted to add functionality to our "repeated" html snippets, but we didn't want to immerse ourselves in a big refactor to render this data client-side using `ngRepeat`. Doing this would also prevent the search engines to index our content.
 
 Searching in the web, we found lots of people trying to accomplish the same thing, like [this question](http://stackoverflow.com/questions/11838639/html-template-filled-in-server-side-and-updated-client-side), [this one](http://stackoverflow.com/questions/25463409/angularjs-server-side-rendering-of-ngrepeat-directive) and [this other one](http://stackoverflow.com/questions/20764100/build-html-in-server-and-bind-to-ng-repeat), none of them succesfully.
 

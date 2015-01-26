@@ -141,7 +141,7 @@ In Restorando we have full client side apps that use AngularJS intensively, and 
 
 During our work we discovered that we wanted to add functionality to our "repeated" html snippets, but we didn't want to immerse ourselves in a big refactor to render this data client-side using `ngRepeat`. Doing this would also prevent the search engines to index our content.
 
-Searching in the web, we found lots of people trying to accomplish the same thing, like [this question](http://stackoverflow.com/questions/11838639/html-template-filled-in-server-side-and-updated-client-side), [this one](http://stackoverflow.com/questions/25463409/angularjs-server-side-rendering-of-ngrepeat-directive) and [this other one](http://stackoverflow.com/questions/20764100/build-html-in-server-and-bind-to-ng-repeat), none of them succesfully.
+Searching on the web, we found lots of people trying to accomplish the same thing, such as [this question](http://stackoverflow.com/questions/11838639/html-template-filled-in-server-side-and-updated-client-side), [this one](http://stackoverflow.com/questions/25463409/angularjs-server-side-rendering-of-ngrepeat-directive) and [this other one](http://stackoverflow.com/questions/20764100/build-html-in-server-and-bind-to-ng-repeat), none of them being successful.
 
 Using this directive in our own applications made us more agile, and it allowed us to replace our old javascript code into AngularJS faster and easily.
 
